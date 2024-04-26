@@ -1,0 +1,14 @@
+function gpt() {
+	local session_name="test"  # Default session name
+	local message=""
+
+	if [[ "$1" == "-s" ]]; then
+		session_name="$2"  # Set session name to the second argument
+		shift 2  # Remove the first two arguments (-s and session name)
+		message="$(printf "%q " "$@")"  # Escape and reconstruct the remaining arguments as message
+	else
+		message="$(printf "%q " "$@")"  # Escape and reconstruct all arguments as message
+	fi
+
+	sgpt --chat "$session_name" "$message"
+}
